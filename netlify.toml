@@ -1,5 +1,5 @@
 [build]
-  functions = "functions"
+  publish = "."
 
 [dev]
-  publish = ""
+  publish = "."
