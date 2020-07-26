@@ -46,10 +46,10 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:email', async (req, res) => {
   try {
-    let id = req.params.id;
-    let user = await db.User.findByPk(id);
+    let email = req.params.email;
+    let user = await db.User.findOne({email: email});
     res.status(200).send(user);
   } catch {
     res.status(400).send('No se pudo obtener el usuario');

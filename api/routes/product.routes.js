@@ -37,12 +37,25 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.get('/all', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    let products = await db.Product.findAll();
+    let products = await db.Product.findAll({
+      attributes: ['id', 'name', 'image', 'price', 'description'],
+      include: [{
+        model: db.Category,
+        as: 'Categories',
+        attributes: ['name'],
+        required: true,
+        through: {
+          attributes: []
+        }
+      }],
+      where: { status: 1 }
+    });
     res.status(200).send(products);
-  } catch {
-    res.status(400).send('No se pudieron obtener los usuarios');
+  } catch(error) {
+    console.log(error);
+    res.status(400).send('No se pudieron obtener los productos');
   }
 });
 
