@@ -16,7 +16,7 @@ app.use('/api/orders', orders);
 app.use('/api/products', products);
 app.use('/api/categories', categories);
 
-// app.listen(process.env.PORT, () => console.log('Servidor corriendo en localhost:', process.env.PORT));
+app.listen(4000, () => console.log('Servidor corriendo en localhost:'));
 
 module.exports = app;
 module.exports.handler = serverless(app);
