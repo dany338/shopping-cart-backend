@@ -40,7 +40,7 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
   try {
     let products = await db.Product.findAll({
-      attributes: ['id', 'name', 'image', 'price', 'description'],
+      attributes: ['id', 'name', 'image', 'price', 'description', 'sellers', 'stock', 'createdAt'],
       include: [{
         model: db.Category,
         as: 'Categories',
