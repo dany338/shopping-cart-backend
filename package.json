@@ -2,11 +2,11 @@
   "name": "shopping-cart-backend",
   "version": "1.0.0",
   "description": "Shopping cart test",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=development ./node_modules/.bin/netlify-lambda serve src",
-    "build": "NODE_ENV=production ./node_modules/.bin/netlify-lambda build src"
+    "start": "node src/server.js",
+    "build": "node src/server.js"
   },
   "repository": {
     "type": "git",
