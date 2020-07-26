@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/server.js",
     "build": "node src/server.js",
-    "build:lambda": "netlify-lambda build backend"
+    "build:lambda": "netlify-lambda build src"
   },
   "repository": {
     "type": "git",
