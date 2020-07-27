@@ -10,8 +10,9 @@ const config = require(__dirname + '/../config/config.json')[env];
 const db = {};
 const production = {
   dialect: 'mysql',
-  dialectModule: mysql2, // Needed to fix sequelize issues with WebPack   port: 3306
-  host: '51.161.116.202'
+  dialectModule: mysql2, // Needed to fix sequelize issues with WebPack
+  host: '51.161.116.202',
+  port: 3306
 };
 let sequelize;
 if (config.use_env_variable) {

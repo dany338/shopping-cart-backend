@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const users      = require('../api/routes/user.routes');
 const orders     = require('../api/routes/order.routes');
 const products   = require('../api/routes/product.routes');
-// const categories = require('../api/routes/category.routes');
+const categories = require('../api/routes/category.routes');
 
 const app = express();
 const router = express.Router();
@@ -17,12 +17,11 @@ router.get('/', (req, res) => {
   res.end();
 });
 
-app.use('/api/users', users);
-app.use('/api/orders', orders);
-// app.use('/api/products', products);
 app.use('/.netlify/functions/server', router);  // path must route to lambda
 app.use('/.netlify/functions/server/products', products);  // path must route to lambda
-// app.use('/.netlify/functions/api/categories', categories);
+app.use('/.netlify/functions/server/orders', orders);  // path must route to lambda
+app.use('/.netlify/functions/server/users', users);
+app.use('/.netlify/functions/server/categories', categories);
 app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
 
 module.exports = app;
