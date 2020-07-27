@@ -1,6 +1,5 @@
-'use strict';
-
 const express    = require('express');
+const path       = require('path');
 const serverless = require("serverless-http");
 const bodyParser = require('body-parser');
 const users      = require('../api/routes/user.routes');
@@ -16,6 +15,7 @@ app.use('/.netlify/functions/api/users', users);
 app.use('/.netlify/functions/api/orders', orders);
 app.use('/.netlify/functions/api/products', products);
 app.use('/.netlify/functions/api/categories', categories);
+app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
 
 module.exports = app;
 module.exports.handler = serverless(app);
