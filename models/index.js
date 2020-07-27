@@ -13,7 +13,7 @@ const production = {
   password: config.password,
   database: config.database,
   host: config.host,
-  dialect: "mysql",
+  dialect: config.dialect,
   dialectModule: mysql2,
   port: config.port
 };
@@ -22,7 +22,7 @@ let sequelize;
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
-  sequelize = new Sequelize(production);
+  sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
 fs

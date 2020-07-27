@@ -55,7 +55,8 @@ router.get('/', async (req, res) => {
     res.status(200).send(products);
   } catch(error) {
     console.log(error);
-    res.status(400).send('No se pudieron obtener los productos');
+    console.log(db);
+    res.status(400).send('No se pudieron obtener los productos 2');
   }
 });
 
