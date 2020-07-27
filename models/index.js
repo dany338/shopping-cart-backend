@@ -15,14 +15,15 @@ const production = {
   host: config.host,
   dialect: config.dialect,
   dialectModule: mysql2,
-  port: config.port
+  port: config.port,
+  pool: { maxConnections: 100, maxIdleTime: 30000},
 };
 
 let sequelize;
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
-  sequelize = new Sequelize(config.database, config.username, config.password, production);
+  sequelize = new Sequelize(config.database, config.username, config.password, production);// new Sequelize(config.database, config.username, config.password, production);
 }
 
 fs
