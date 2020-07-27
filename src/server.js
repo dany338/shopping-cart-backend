@@ -8,6 +8,7 @@ const products   = require('../api/routes/product.routes');
 // const categories = require('../api/routes/category.routes');
 
 const app = express();
+const router = express.Router();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 router.get('/', (req, res) => {
