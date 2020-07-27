@@ -14,7 +14,7 @@ const production = {
   database: config.database,
   host: config.host,
   dialect: "mysql",
-  dialectModule: mysql2,
+  dialectModule: "mysql2",
   port: '3306'
 };
 
