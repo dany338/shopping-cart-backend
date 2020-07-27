@@ -14,6 +14,7 @@ router.put('/:id', async (req, res) => {
     }, {
       where: { id: 1 }
     });
+    res.set('Access-Control-Allow-Origin', '*');
     res.status(200).send('Usuario creado');
   } catch (error) {
     res.status(400).send('No se pudo crear el usuario');
@@ -31,6 +32,7 @@ router.post('/', async (req, res) => {
       email,
       password,
     });
+    res.set('Access-Control-Allow-Origin', '*');
     res.status(200).send('Usuario creado');
   } catch (error) {
     res.status(400).send('No se pudo crear el usuario');
@@ -40,6 +42,7 @@ router.post('/', async (req, res) => {
 router.get('/', async (req, res) => {
   try {
     let orders = await db.Order.findAll();
+    res.set('Access-Control-Allow-Origin', '*');
     res.status(200).send(orders);
   } catch {
     res.status(400).send('No se pudieron obtener los ordenes');
@@ -50,6 +53,7 @@ router.get('/:id', async (req, res) => {
   try {
     let id = req.params.id;
     let order = await db.Order.findByPk(id);
+    res.set('Access-Control-Allow-Origin', '*');
     res.status(200).send(order);
   } catch {
     res.status(400).send('No se pudo obtener la orden');
