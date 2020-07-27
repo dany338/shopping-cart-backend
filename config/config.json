@@ -18,6 +18,7 @@
     "password": "Yli?E#o)!w+k",
     "database": "historia_shopping_cart",
     "host": "51.161.116.202",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "port": "3306"
   }
 }
