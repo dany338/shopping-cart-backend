@@ -9,16 +9,20 @@ const env = process.env.NODE_ENV || 'production';
 const config = require(__dirname + '/../config/config.json')[env];
 const db = {};
 const production = {
-  dialect: 'mysql',
-  dialectModule: mysql2, // Needed to fix sequelize issues with WebPack
-  host: '51.161.116.202',
-  port: 3306
+  username: config.username,
+  password: config.password,
+  database: config.database,
+  host: config.host,
+  dialect: "mysql",
+  dialectModule: mysql2,
+  port: '3306'
 };
+
 let sequelize;
 if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], config);
 } else {
-  sequelize = new Sequelize(config.database, config.username, config.password, production);
+  sequelize = new Sequelize(production);
 }
 
 fs
