@@ -53,6 +53,10 @@ router.get('/:email', async (req, res) => {
   try {
     let email = req.params.email;
     let user = await db.User.findOne({email: email});
+    user = {
+      data: { ...user },
+      ok: user ? true : false
+    }
     res.set('Access-Control-Allow-Origin', '*');
     res.status(200).send(user);
   } catch {

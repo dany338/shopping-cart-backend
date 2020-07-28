@@ -52,7 +52,7 @@ router.get('/', async (req, res) => {
           attributes: []
         }
       }],
-      where: { status: 1 }
+      where: { status: 1 } // Products available 2: Not in stock no available
     });
     res.set('Access-Control-Allow-Origin', '*');
     res.status(200).send(products);

@@ -22,20 +22,80 @@ router.put('/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  let name = req.body.name;
-  let email = req.body.email;
-  let password = req.body.password;
+  res.set('Access-Control-Allow-Origin', '*');
+  // res.set('Allow', true);
+  res.set('Content-Type', 'application/json; charset=utf-8');
+  // res.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  const body = JSON.parse(req.body);
+  console.log(body);
+  let orders = body.orders;
+  let customer = body.customer;
+  let code = body.code;
+  let total = body.total;
+  let userMe = null;
+  let newOrder = null;
+  let userId = null;
 
   try {
-    await db.Order.create({
-      name,
-      email,
-      password,
-    });
-    res.set('Access-Control-Allow-Origin', '*');
-    res.status(200).send('Usuario creado');
+    if(customer.id !== null) {
+      userMe = await db.User.update({
+        fullname: customer.fullName,
+        identification: customer.identification,
+        address: customer.address,
+        phonenumber: customer.phoneNumber,
+        email: customer.email
+      }, {
+        where: { id: customer.id }
+      });
+      userId = customer.id;
+    } else {
+      await db.User.create({
+        fullname: customer.fullName,
+        identification: customer.identification,
+        address: customer.address,
+        phonenumber: customer.phoneNumber,
+        email: customer.email
+      });
+      const user = await db.User.findOne({email: customer.email});
+      if(user) {
+        userId = user.dataValues.id
+      }
+      console.log('userMe', user, userId);
+    }
+
+    if(userId) {
+      newOrder = await db.Order.create({
+        userId,
+        code,
+        total,
+        status: 1,
+      });
+      if(newOrder) {
+        await orders.forEach(async (order) => {
+          db.Ordersummary.create({
+            orderId: newOrder.id,
+            productId: order.id,
+            units: order.units,
+            total: order.total,
+            status: 1,
+          });
+
+          let product = await db.Product.findByPk(order.id);
+          if(product) {
+            db.Product.update({
+              sellers: product.sellers + order.units,
+              stock: product.stock - order.units,
+              status: ((product.stock - order.units) <= 0) ? 2 : 1
+            }, {
+              where: { id: product.id }
+            });
+          }
+        });
+      }
+    }
+    res.status(200).send(newOrder);
   } catch (error) {
-    res.status(400).send('No se pudo crear el usuario');
+    res.status(400).send('No se pudo crear la orden');
   }
 });
 

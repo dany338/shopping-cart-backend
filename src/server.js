@@ -1,7 +1,9 @@
+
 const express    = require('express');
 const path       = require('path');
 const serverless = require("serverless-http");
 const bodyParser = require('body-parser');
+const db         = require('../models');
 const users      = require('../api/routes/user.routes');
 const orders     = require('../api/routes/order.routes');
 const products   = require('../api/routes/product.routes');
